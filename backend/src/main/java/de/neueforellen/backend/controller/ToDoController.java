@@ -43,7 +43,7 @@ public class ToDoController {
     }
 
     @PutMapping("api/todo/{id}")
-    public ToDo editToDoStatus(@PathVariable String id){
+    public ToDo editToDoStatus(@PathVariable String id, String status){
         //TODO edit existing ToDO
         //service.editToDo(String id) -> return ToDo
         return new ToDo();
