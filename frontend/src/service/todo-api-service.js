@@ -1,44 +1,26 @@
+import axios from "axios";
+
 export const getTodos = () => {
-    return fetch("/api/todo")
-        .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("fetch todos failed")
-            }
-        )
+    return axios.get("/api/todo")
+        .then(res => res.data)
+        .catch(console.error);
 }
 
 export const postTodo = (description) => {
-    return fetch('/api/todo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({description, status: "OPEN"}),
-    }).then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("fetch todos failed")
-        }
-    )
+
+    const newTodo = {
+        description : description,
+        status : "OPEN"
+    }
+
+    return axios.post("api/todo", newTodo)
+        .then(res => res.data)
 }
 
 export const putTodo = (todo) => {
-    return fetch(`/api/todo/${todo.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(todo),
-    }).then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("update todo failed")
-        }
-    )
+
+    return axios.put(`api/todo${todo.id}`)
+        .then(res => res.data)
 }
 
 export const deleteTodo = (id) => {

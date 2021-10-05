@@ -13,6 +13,7 @@ function App() {
     const addTodo = (description) => {
         postTodo(description)
             .then(addedTodo => setTodos([...todos, addedTodo]))
+            .catch(console.error);
     }
 
     const advanceTodo = (todo) => {
