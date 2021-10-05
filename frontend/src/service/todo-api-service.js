@@ -18,15 +18,12 @@ export const postTodo = (description) => {
 }
 
 export const putTodo = (todo) => {
-
-    return axios.put(`api/todo${todo.id}`)
+    return axios.put(`api/todo/${todo.id}`, todo)
         .then(res => res.data)
 }
 
 export const deleteTodo = (id) => {
-    return fetch(`/api/todo/${id}`, {
-        method: 'DELETE',
-    })
+    return axios.delete(`api/todo/${id}`);
 }
 
 
