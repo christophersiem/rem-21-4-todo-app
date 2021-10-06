@@ -5,6 +5,13 @@ import styled from "styled-components/macro";
 import {useEffect, useState} from "react";
 import {deleteTodo, getTodos, postTodo, putTodo} from "./service/todo-api-service";
 import {getNextStatus} from "./service/todo-service";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import BoardsOverviewPath from "./components/BoardsOverviewPath";
 
 function App() {
 
@@ -36,15 +43,32 @@ function App() {
     }, [])
 
     return (
-        <PageLayout>
-            <Header/>
-            <BoardsOverview
-                todos={todos}
-                onAdvance={advanceTodo}
-                onDelete={removeTodo}
-            />
-            <NewTodo onAdd={addTodo}/>
-        </PageLayout>
+        <Router>
+            <Switch>
+                <Route path="/" exact>
+                    <PageLayout>
+                        <Header/>
+                        <BoardsOverview
+                            todos={todos}
+                            onAdvance={advanceTodo}
+                            onDelete={removeTodo}
+                        />
+                        <NewTodo onAdd={addTodo}/>
+                    </PageLayout>
+                </Route>
+                <Route  path="/:todoStatus">
+                    <PageLayout>
+                        <Header/>
+                        <BoardsOverviewPath
+                            todos={todos}
+                            onAdvance={advanceTodo}
+                            onDelete={removeTodo}
+                        />
+                        <NewTodo onAdd={addTodo}/>
+                    </PageLayout>
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 
