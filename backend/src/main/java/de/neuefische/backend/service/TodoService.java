@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class TodoService {
@@ -21,27 +22,32 @@ public class TodoService {
     }
 
     public List<Todo> getTodos() {
-        return todoRepo.getTodos();
+        return todoRepo.findAll();
     }
 
     public Todo addTodo(Todo todo) {
         todo.setId(idService.generateId());
-        return todoRepo.addTodo(todo);
+        return todoRepo.save(todo);
     }
 
     public Todo updateTodo(Todo todo) {
         if(todoRepo.existsById(todo.getId())){
-            return todoRepo.updateTodo(todo);
+            return todoRepo.save(todo);
         } else{
             throw new NoSuchElementException("Could not update Todo element! Element with id does not exist: " + todo.getId());
         }
     }
 
     public void deleteTodo(String id) {
-        todoRepo.deleteTodo(id);
+        todoRepo.deleteById(id);
     }
 
     public Todo getTodo(String id) {
-        return todoRepo.findById(id);
+        Optional<Todo> optionalTodo = todoRepo.findById(id);
+        if (optionalTodo.isPresent()) {
+            return optionalTodo.get();
+        } else {
+            throw new NoSuchElementException("Todo not found with id: " + id);
+        }
     }
 }
