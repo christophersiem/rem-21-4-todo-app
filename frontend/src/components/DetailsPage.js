@@ -6,11 +6,11 @@ import useDetailedTodo from '../hooks/useDetailedTodo'
 export default function DetailsPage() {
   const { id } = useParams()
 
-  const {detailedTodo, getTodoById} = useDetailedTodo()
+  const { detailedTodo, getTodoById } = useDetailedTodo()
 
-    useEffect(() => {
-        getTodoById(id)
-    }, [id, getTodoById ])
+  useEffect(() => {
+    getTodoById(id)
+  }, [id, getTodoById])
 
   return (
     <Wrapper>
