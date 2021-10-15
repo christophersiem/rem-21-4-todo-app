@@ -28,6 +28,11 @@ public class TodoController {
         return todoService.getTodo(id);
     }
 
+    @GetMapping ("/test")
+    public void test(){
+        return;
+    }
+
     @PostMapping
     public Todo addTodo(@RequestBody Todo todo){
         return todoService.addTodo(todo);
