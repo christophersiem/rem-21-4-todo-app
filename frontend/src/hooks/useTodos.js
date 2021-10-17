@@ -9,6 +9,7 @@ import { getNextStatus } from '../service/todo-service'
 
 export default function useTodos() {
   const [todos, setTodos] = useState([])
+  console.log(todos)
 
   const addTodo = description => {
     postTodo(description).then(addedTodo => setTodos([...todos, addedTodo]))
@@ -29,7 +30,9 @@ export default function useTodos() {
   }
 
   useEffect(() => {
-    getTodos().then(todos => setTodos(todos))
+    getTodos()
+      .then(todos => setTodos(todos))
+      .catch(error => console.error(error.message))
   }, [])
 
   return { todos, addTodo, advanceTodo, removeTodo }
