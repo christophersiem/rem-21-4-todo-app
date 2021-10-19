@@ -1,10 +1,7 @@
 import axios from 'axios'
 
 export const getTodos = () => {
-  return axios
-    .get('/api/todo')
-    .then(response => response.data)
-    .catch(error => console.log(error))
+  return axios.get('/api/todo').then(response => response.data)
 }
 
 export const postTodo = newDescription => {
