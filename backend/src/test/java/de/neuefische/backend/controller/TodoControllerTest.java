@@ -1,12 +1,15 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.controller.exception.ApiError;
 import de.neuefische.backend.dto.LoginData;
 import de.neuefische.backend.model.Todo;
 import de.neuefische.backend.repo.TodoRepo;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repo.AppUserRepo;
 import de.neuefische.backend.security.service.AppUserDetailService;
+import de.neuefische.backend.security.service.JwtUtilsService;
 import de.neuefische.backend.service.IdService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,6 +36,9 @@ import static org.mockito.Mockito.when;
         SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = "jwt.secret=testSecret")
 class TodoControllerTest {
+
+    @Autowired
+    private JwtUtilsService jwtUtilsService;
 
     @Autowired
     private AppUserRepo userRepo;
@@ -97,6 +106,28 @@ class TodoControllerTest {
                 new Todo("1", "sleep", "OPEN"),
                 new Todo("2", "chill ", "IN_PROGRESS")));
 
+    }
+
+    @Test
+    public void getTodoItems_invalidtoken_ShouldThrowException() {
+
+
+        //GIVEN
+        ReflectionTestUtils.setField(jwtUtilsService, "duration", 1);
+
+        repository.save(new Todo("1", "sleep", "OPEN"));
+        repository.save(new Todo("2", "chill ", "IN_PROGRESS"));
+        HttpHeaders headers = getHttpHeadersWithAuthToken();
+
+
+        //WHEN
+        try {
+            ResponseEntity<Todo[]> response = restTemplate.exchange("/api/todo", HttpMethod.GET, new HttpEntity<>(headers), Todo[].class);
+            fail();
+        }
+        catch (Exception e) {
+        }
+        //THEN
     }
 
     @Test

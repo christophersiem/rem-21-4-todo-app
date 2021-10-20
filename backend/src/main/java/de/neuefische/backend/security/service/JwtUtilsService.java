@@ -17,13 +17,15 @@ public class JwtUtilsService {
     @Value("${jwt.secret:}")
     private String secret;
 
+    private long duration = 14400000;
+
     public String createToken(HashMap<String, Object> claims, String subject) {
 
         return Jwts.builder()
                 .addClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Date.from(Instant.now()))
-                  .setExpiration(Date.from(Instant.now().plus(Duration.ofDays(1))))
+                  .setExpiration(Date.from(Instant.now().plus(Duration.ofMillis(duration))))
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
