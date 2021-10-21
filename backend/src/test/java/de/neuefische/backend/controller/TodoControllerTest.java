@@ -112,6 +112,18 @@ class TodoControllerTest {
     }
 
     @Test
+    public void putTodoItemShouldThrowException() {
+        //GIVEN
+
+        //WHEN
+        Todo updatedTodo = new Todo("2", "drink", "OPEN");
+        ResponseEntity<Todo> response = restTemplate.exchange("/api/todo/1", HttpMethod.PUT, new HttpEntity<>(updatedTodo, getHttpHeadersWithJWT()), Todo.class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.UNPROCESSABLE_ENTITY));
+    }
+
+    @Test
     public void getTodoShouldReturnTodoItem() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
