@@ -2,43 +2,59 @@ import Header from './components/Header'
 import styled from 'styled-components/macro'
 
 import NavigationBar from './components/NavigationBar'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Homepage from './components/Homepage'
-import BoardPage from './components/BoardPage'
-import DetailsPage from './components/DetailsPage'
+import {Route, Switch, useHistory} from 'react-router-dom'
+import Homepage from './pages/Homepage'
+import BoardPage from './pages/BoardPage'
+import DetailsPage from './pages/DetailsPage'
 import useTodos from './hooks/useTodos'
+import LoginPage from "./pages/LoginPage";
+import {useState} from "react";
+import axios from "axios";
 
 function App() {
-  const { todos, addTodo, advanceTodo, removeTodo } = useTodos()
+    const [token, setToken] = useState()
+    const {todos, addTodo, advanceTodo, removeTodo} = useTodos(token)
+    const history = useHistory();
 
-  return (
-    <Router>
-      <PageLayout>
-        <Header />
-        <NavigationBar />
-        <Switch>
-          <Route path="/" exact>
-            <Homepage
-              todos={todos}
-              onAdvance={advanceTodo}
-              onDelete={removeTodo}
-              onAdd={addTodo}
-            />
-          </Route>
-          <Route path="/todos/:statusSlug">
-            <BoardPage
-              todos={todos}
-              onAdvance={advanceTodo}
-              onDelete={removeTodo}
-            />
-          </Route>
-          <Route path={'/todo/:id'}>
-            <DetailsPage />
-          </Route>
-        </Switch>
-      </PageLayout>
-    </Router>
-  )
+    const login = (credentials) => {
+        axios.post("/auth/login", credentials)
+            .then(res => res.data)
+            .then(setToken)
+            .then(() => history.push("/"))
+            .catch(error => console.error(error.message))
+    }
+
+    return (
+
+        <PageLayout>
+            <Header/>
+            <NavigationBar/>
+            <Switch>
+                <Route path={"/login"}>
+                    <LoginPage login={login}/>
+                </Route>
+                <Route path="/" exact>
+                    <Homepage
+                        todos={todos}
+                        onAdvance={advanceTodo}
+                        onDelete={removeTodo}
+                        onAdd={addTodo}
+                    />
+                </Route>
+                <Route path="/todos/:statusSlug">
+                    <BoardPage
+                        todos={todos}
+                        onAdvance={advanceTodo}
+                        onDelete={removeTodo}
+                    />
+                </Route>
+                <Route path={'/todo/:id'}>
+                    <DetailsPage/>
+                </Route>
+            </Switch>
+        </PageLayout>
+
+    )
 }
 
 export default App
