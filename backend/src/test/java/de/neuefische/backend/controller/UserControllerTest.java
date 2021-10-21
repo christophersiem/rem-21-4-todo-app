@@ -7,6 +7,7 @@ import de.neuefische.backend.security.service.JWTUtilService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,8 @@ import java.util.HashMap;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = "neuefische.todo.jwt.secret=super-secret-secret")
@@ -29,7 +32,7 @@ class UserControllerTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
+    @SpyBean
     private JWTUtilService jwtUtilService;
 
     @Autowired
@@ -64,15 +67,16 @@ class UserControllerTest {
         //GIVEN
         HttpHeaders headers = new HttpHeaders();
 
-        ReflectionTestUtils.setField(jwtUtilService, "duration", 1);
+        when(jwtUtilService.getDuration()).thenReturn(1L);
+
         headers.setBearerAuth(jwtUtilService.createToken(new HashMap<>(), "test_username"));
 
-        //headers.setBearerAuth("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJleHAiOjE2MzQ3Mzc1NTQsImlhdCI6MTYzNDczNzQ5NH0.hRz2tvtXjLbof29HFGWTcGGk8VxliVoD17Yhl-uEPdw");
         //WHEN
         ResponseEntity<UserResponseDto> response = restTemplate.exchange("/api/user/me", HttpMethod.GET, new HttpEntity<>(headers), UserResponseDto.class);
         //THEN
 
         assertThat(response.getStatusCode(), is(HttpStatus.FORBIDDEN));
+        verify(jwtUtilService).getDuration();
     }
 
     private HttpHeaders getHttpHeadersWithJWT() {
