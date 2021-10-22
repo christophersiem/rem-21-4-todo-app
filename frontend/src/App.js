@@ -8,41 +8,38 @@ import BoardPage from './pages/BoardPage'
 import DetailsPage from './pages/DetailsPage'
 import useTodos from './hooks/useTodos'
 import LoginPage from './pages/LoginPage'
-import AuthProvider from './context/AuthProvider'
 
 function App() {
   const { todos, addTodo, advanceTodo, removeTodo } = useTodos()
 
   return (
-    <AuthProvider>
-      <PageLayout>
-        <Header />
-        <NavigationBar />
-        <Switch>
-          <Route path={'/login'}>
-            <LoginPage />
-          </Route>
-          <Route path="/" exact>
-            <Homepage
-              todos={todos}
-              onAdvance={advanceTodo}
-              onDelete={removeTodo}
-              onAdd={addTodo}
-            />
-          </Route>
-          <Route path="/todos/:statusSlug">
-            <BoardPage
-              todos={todos}
-              onAdvance={advanceTodo}
-              onDelete={removeTodo}
-            />
-          </Route>
-          <Route path={'/todo/:id'}>
-            <DetailsPage />
-          </Route>
-        </Switch>
-      </PageLayout>
-    </AuthProvider>
+    <PageLayout>
+      <Header />
+      <NavigationBar />
+      <Switch>
+        <Route path={'/login'}>
+          <LoginPage />
+        </Route>
+        <Route path="/" exact>
+          <Homepage
+            todos={todos}
+            onAdvance={advanceTodo}
+            onDelete={removeTodo}
+            onAdd={addTodo}
+          />
+        </Route>
+        <Route path="/todos/:statusSlug">
+          <BoardPage
+            todos={todos}
+            onAdvance={advanceTodo}
+            onDelete={removeTodo}
+          />
+        </Route>
+        <Route path={'/todo/:id'}>
+          <DetailsPage />
+        </Route>
+      </Switch>
+    </PageLayout>
   )
 }
 
