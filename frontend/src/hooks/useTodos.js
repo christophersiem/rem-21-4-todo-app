@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   deleteTodo,
   getTodos,
@@ -6,12 +6,16 @@ import {
   putTodo,
 } from '../service/todo-api-service'
 import { getNextStatus } from '../service/todo-service'
+import { AuthContext } from '../context/AuthProvider'
 
-export default function useTodos(token) {
+export default function useTodos() {
   const [todos, setTodos] = useState([])
+  const { token } = useContext(AuthContext)
 
   const addTodo = description => {
-    postTodo(description, token).then(addedTodo => setTodos([...todos, addedTodo]))
+    postTodo(description, token).then(addedTodo =>
+      setTodos([...todos, addedTodo])
+    )
   }
 
   const advanceTodo = todo => {
@@ -25,7 +29,9 @@ export default function useTodos(token) {
   }
 
   const removeTodo = id => {
-    deleteTodo(id, token).then(() => setTodos(todos.filter(todo => todo.id !== id)))
+    deleteTodo(id, token).then(() =>
+      setTodos(todos.filter(todo => todo.id !== id))
+    )
   }
 
   useEffect(() => {
