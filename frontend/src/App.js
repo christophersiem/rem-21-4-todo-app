@@ -8,6 +8,7 @@ import BoardPage from './pages/BoardPage'
 import DetailsPage from './pages/DetailsPage'
 import useTodos from './hooks/useTodos'
 import LoginPage from './pages/LoginPage'
+import PrivateRoute from './routing/PrivateRoute'
 
 function App() {
   const { todos, addTodo, advanceTodo, removeTodo } = useTodos()
@@ -20,24 +21,24 @@ function App() {
         <Route path={'/login'}>
           <LoginPage />
         </Route>
-        <Route path="/" exact>
+        <PrivateRoute path="/" exact>
           <Homepage
             todos={todos}
             onAdvance={advanceTodo}
             onDelete={removeTodo}
             onAdd={addTodo}
           />
-        </Route>
-        <Route path="/todos/:statusSlug">
+        </PrivateRoute>
+        <PrivateRoute path="/todos/:statusSlug">
           <BoardPage
             todos={todos}
             onAdvance={advanceTodo}
             onDelete={removeTodo}
           />
-        </Route>
-        <Route path={'/todo/:id'}>
+        </PrivateRoute>
+        <PrivateRoute path={'/todo/:id'}>
           <DetailsPage />
-        </Route>
+        </PrivateRoute>
       </Switch>
     </PageLayout>
   )
