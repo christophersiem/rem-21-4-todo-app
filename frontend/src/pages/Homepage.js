@@ -1,5 +1,5 @@
-import BoardsOverview from './BoardsOverview'
-import NewTodo from './NewTodo'
+import BoardsOverview from '../components/BoardsOverview'
+import NewTodo from '../components/NewTodo'
 import PropTypes from 'prop-types'
 
 Homepage.propTypes = {

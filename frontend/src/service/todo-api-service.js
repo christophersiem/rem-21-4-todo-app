@@ -1,26 +1,34 @@
 import axios from 'axios'
 
-export const getTodos = () => {
-  return axios.get('/api/todo').then(response => response.data)
+const getHeader = (token) => {
+    return {
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+    }
 }
 
-export const postTodo = newDescription => {
-  const newTodo = {
-    description: newDescription,
-    status: 'OPEN',
-  }
-
-  return axios.post('/api/todo', newTodo).then(response => response.data)
+export const getTodos = (token) => {
+    return axios.get('/api/todo', getHeader(token)).then(response => response.data)
 }
 
-export const putTodo = todo => {
-  return axios.put(`/api/todo/${todo.id}`, todo).then(response => response.data)
+export const postTodo = (newDescription, token) => {
+    const newTodo = {
+        description: newDescription,
+        status: 'OPEN',
+    }
+
+    return axios.post('/api/todo', newTodo, getHeader(token)).then(response => response.data)
 }
 
-export const deleteTodo = id => {
-  return axios.delete(`/api/todo/${id}`)
+export const putTodo = (todo, token) => {
+    return axios.put(`/api/todo/${todo.id}`, todo, getHeader(token)).then(response => response.data)
 }
 
-export const getTodoBy = id => {
-  return axios.get(`/api/todo/${id}`)
+export const deleteTodo = (id, token) => {
+    return axios.delete(`/api/todo/${id}`, getHeader(token))
+}
+
+export const getTodoBy = (id, token) => {
+    return axios.get(`/api/todo/${id}`, getHeader(token))
 }
