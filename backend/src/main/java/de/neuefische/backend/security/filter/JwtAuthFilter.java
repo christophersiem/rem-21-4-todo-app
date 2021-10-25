@@ -1,16 +1,12 @@
 package de.neuefische.backend.security.filter;
 
-import de.neuefische.backend.controller.exception.ApiError;
 import de.neuefische.backend.security.service.JWTUtilService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
