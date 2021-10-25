@@ -9,6 +9,7 @@ import DetailsPage from './pages/DetailsPage'
 import useTodos from './hooks/useTodos'
 import LoginPage from './pages/LoginPage'
 import PrivateRoute from './routing/PrivateRoute'
+import GithubRedirectPage from "./pages/GithubRedirectPage";
 
 function App() {
   const { todos, addTodo, advanceTodo, removeTodo } = useTodos()
@@ -20,6 +21,9 @@ function App() {
       <Switch>
         <Route path={'/login'}>
           <LoginPage />
+        </Route>
+        <Route path="/oauth/github/redirect">
+          <GithubRedirectPage/>
         </Route>
         <PrivateRoute path="/" exact>
           <Homepage
