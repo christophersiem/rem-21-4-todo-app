@@ -2,11 +2,11 @@ package de.neuefische.backend.security.filter;
 
 import de.neuefische.backend.security.service.JWTUtilService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -34,8 +34,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 String username = jwtUtils.extractUsername(token);
                 setSecurityContext(username);
             }
-        } catch(Exception e){
-            throw new AccessDeniedException("No valid token! Access denied!", e);
+        } catch (Exception ex) {
+            log.error("Access denied, invalid token", ex);
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
 
         filterChain.doFilter(request, response);
@@ -49,7 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private String getAuthToken(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
 
-        if(authHeader != null){
+        if (authHeader != null) {
             return authHeader.replace("Bearer ", "").trim();
         }
         return null;
