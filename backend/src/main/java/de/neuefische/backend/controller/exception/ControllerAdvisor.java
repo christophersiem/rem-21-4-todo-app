@@ -42,6 +42,15 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(GitHubAuthenticationException.class)
+    public ResponseEntity<ApiError> handleBadCredentialsException(GitHubAuthenticationException ex){
+        log.error("Error while authenticating via GitHub!", ex);
+
+        ApiError apiError = new ApiError("Error while authenticating via GitHub!", ex.getMessage());
+
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_GATEWAY);
+    }
+
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ApiError> handleUnknownException(Throwable ex){
         log.error("Unknown Error!", ex);

@@ -1,6 +1,5 @@
 import {useLocation} from "react-router-dom";
 import {useContext, useEffect} from "react";
-import axios from "axios";
 import {AuthContext} from "../context/AuthProvider";
 
 export default function GithubRedirectPage() {

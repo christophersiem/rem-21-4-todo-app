@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
+/**
+ * Controller for Credential based logins
+ */
 @RestController
 @RequestMapping("auth/login")
 public class LoginController {
