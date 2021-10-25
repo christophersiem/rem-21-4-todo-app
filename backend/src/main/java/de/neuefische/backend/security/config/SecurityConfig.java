@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/api").authenticated()
-                .antMatchers("/**").authenticated()
+                .antMatchers("/**").permitAll()
                 .and().addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
