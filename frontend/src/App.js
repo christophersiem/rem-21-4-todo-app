@@ -2,42 +2,45 @@ import Header from './components/Header'
 import styled from 'styled-components/macro'
 
 import NavigationBar from './components/NavigationBar'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Homepage from './components/Homepage'
-import BoardPage from './components/BoardPage'
-import DetailsPage from './components/DetailsPage'
+import { Route, Switch } from 'react-router-dom'
+import Homepage from './pages/Homepage'
+import BoardPage from './pages/BoardPage'
+import DetailsPage from './pages/DetailsPage'
 import useTodos from './hooks/useTodos'
+import LoginPage from './pages/LoginPage'
+import PrivateRoute from './routing/PrivateRoute'
 
 function App() {
   const { todos, addTodo, advanceTodo, removeTodo } = useTodos()
 
   return (
-    <Router>
-      <PageLayout>
-        <Header />
-        <NavigationBar />
-        <Switch>
-          <Route path="/" exact>
-            <Homepage
-              todos={todos}
-              onAdvance={advanceTodo}
-              onDelete={removeTodo}
-              onAdd={addTodo}
-            />
-          </Route>
-          <Route path="/todos/:statusSlug">
-            <BoardPage
-              todos={todos}
-              onAdvance={advanceTodo}
-              onDelete={removeTodo}
-            />
-          </Route>
-          <Route path={'/todo/:id'}>
-            <DetailsPage />
-          </Route>
-        </Switch>
-      </PageLayout>
-    </Router>
+    <PageLayout>
+      <Header />
+      <NavigationBar />
+      <Switch>
+        <Route path={'/login'}>
+          <LoginPage />
+        </Route>
+        <PrivateRoute path="/" exact>
+          <Homepage
+            todos={todos}
+            onAdvance={advanceTodo}
+            onDelete={removeTodo}
+            onAdd={addTodo}
+          />
+        </PrivateRoute>
+        <PrivateRoute path="/todos/:statusSlug">
+          <BoardPage
+            todos={todos}
+            onAdvance={advanceTodo}
+            onDelete={removeTodo}
+          />
+        </PrivateRoute>
+        <PrivateRoute path={'/todo/:id'}>
+          <DetailsPage />
+        </PrivateRoute>
+      </Switch>
+    </PageLayout>
   )
 }
 
