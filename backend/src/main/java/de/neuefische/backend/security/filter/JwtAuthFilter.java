@@ -36,7 +36,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         } catch (Exception ex) {
             log.error("Access denied, invalid token", ex);
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
 
         filterChain.doFilter(request, response);
