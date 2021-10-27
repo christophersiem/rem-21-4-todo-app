@@ -10,6 +10,7 @@ const initialState = {
 export default function LoginPage() {
     const [credentials, setCredentials] = useState(initialState)
     const {login} = useContext(AuthContext)
+    const clientId = "bf030e78902c4107794b"
 
     const handleChange = event => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
@@ -18,6 +19,10 @@ export default function LoginPage() {
     const handleSubmit = event => {
         event.preventDefault()
         login(credentials)
+    }
+
+    const loginWithGithub = () => {
+        window.open("https://github.com/login/oauth/authorize?client_id=" + clientId)
     }
 
     return (
@@ -46,6 +51,9 @@ export default function LoginPage() {
             />
 
             <button>Login</button>
+            <button
+                type={"button"}
+                onClick={loginWithGithub}>Login with GitHub</button>
         </Form>
     )
 }

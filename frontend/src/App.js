@@ -1,7 +1,6 @@
 import Header from './components/Header'
 import styled from 'styled-components/macro'
 
-import NavigationBar from './components/NavigationBar'
 import { Route, Switch } from 'react-router-dom'
 import Homepage from './pages/Homepage'
 import BoardPage from './pages/BoardPage'
@@ -9,6 +8,7 @@ import DetailsPage from './pages/DetailsPage'
 import useTodos from './hooks/useTodos'
 import LoginPage from './pages/LoginPage'
 import PrivateRoute from './routing/PrivateRoute'
+import GithubRedirectPage from "./pages/GithubRedirectPage";
 
 function App() {
   const { todos, addTodo, advanceTodo, removeTodo } = useTodos()
@@ -17,6 +17,9 @@ function App() {
     <PageLayout>
       <Header />
       <Switch>
+        <Route path={"/oauth/github/redirect"}>
+          <GithubRedirectPage/>
+        </Route>
         <Route path={'/login'}>
           <LoginPage />
         </Route>
