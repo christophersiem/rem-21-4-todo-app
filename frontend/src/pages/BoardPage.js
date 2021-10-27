@@ -2,6 +2,7 @@ import Board from '../components/Board'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import NavigationBar from "../components/NavigationBar";
 
 BoardPage.propTypes = {
   todos: PropTypes.array.isRequired,
@@ -32,6 +33,7 @@ export default function BoardPage({ todos, onAdvance, onDelete }) {
 
   return (
     <Wrapper>
+      <NavigationBar />
       <Board
         todos={filteredTodos}
         onAdvance={onAdvance}
