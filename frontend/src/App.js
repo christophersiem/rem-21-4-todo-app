@@ -16,7 +16,6 @@ function App() {
   return (
     <PageLayout>
       <Header />
-      <NavigationBar />
       <Switch>
         <Route path={'/login'}>
           <LoginPage />
