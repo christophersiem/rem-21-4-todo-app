@@ -35,6 +35,7 @@ export default function useTodos() {
   }
 
   useEffect(() => {
+    token &&
     getTodos(token)
       .then(todos => setTodos(todos))
       .catch(error => console.error(error.message))
