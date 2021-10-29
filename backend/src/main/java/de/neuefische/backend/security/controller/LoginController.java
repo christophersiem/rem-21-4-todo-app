@@ -1,7 +1,6 @@
 package de.neuefische.backend.security.controller;
 
 import de.neuefische.backend.security.dto.LoginDto;
-import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.service.JWTUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
