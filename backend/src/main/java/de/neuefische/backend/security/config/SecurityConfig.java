@@ -45,8 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    @SuppressWarnings({"java:S4502"})
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().ignoringAntMatchers("/auth/**", "/api/**").and()
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/**").permitAll()
