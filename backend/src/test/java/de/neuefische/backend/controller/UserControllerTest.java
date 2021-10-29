@@ -44,7 +44,7 @@ class UserControllerTest {
         //THEN
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertEquals(response.getBody().getUsername(), "test_username");
+        assertEquals("test_username", response.getBody().getUsername());
     }
 
     @Test

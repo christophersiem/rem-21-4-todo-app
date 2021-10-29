@@ -80,7 +80,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void getTodoItemsShouldReturnItemsFromDb() {
+    void getTodoItemsShouldReturnItemsFromDb() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill ", "IN_PROGRESS"));
@@ -97,7 +97,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void putTodoItemShouldUpdateItem() {
+    void putTodoItemShouldUpdateItem() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill", "IN_PROGRESS"));
@@ -114,7 +114,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void putTodoItemShouldThrowException() {
+    void putTodoItemShouldThrowException() {
         //GIVEN
 
         //WHEN
@@ -126,7 +126,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void getTodoShouldReturnTodoItem() {
+    void getTodoShouldReturnTodoItem() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill", "IN_PROGRESS"));
@@ -141,7 +141,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void deleteTodoShouldDeleteItemFromDb() {
+    void deleteTodoShouldDeleteItemFromDb() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill", "IN_PROGRESS"));
