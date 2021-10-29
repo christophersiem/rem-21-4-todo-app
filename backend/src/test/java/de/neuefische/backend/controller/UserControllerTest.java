@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = "neuefische.todo.jwt.secret=super-secret-secret")
@@ -44,7 +44,7 @@ class UserControllerTest {
         //THEN
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertEquals(response.getBody().getUsername(), "test_username");
+        assertEquals("test_username", response.getBody().getUsername());
     }
 
     @Test

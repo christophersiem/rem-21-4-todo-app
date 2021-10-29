@@ -18,9 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.ArrayMatching.arrayContainingInAnyOrder;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment =
@@ -78,7 +80,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void getTodoItemsShouldReturnItemsFromDb() {
+    void getTodoItemsShouldReturnItemsFromDb() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill ", "IN_PROGRESS"));
@@ -95,7 +97,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void putTodoItemShouldUpdateItem() {
+    void putTodoItemShouldUpdateItem() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill", "IN_PROGRESS"));
@@ -112,7 +114,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void putTodoItemShouldThrowException() {
+    void putTodoItemShouldThrowException() {
         //GIVEN
 
         //WHEN
@@ -124,7 +126,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void getTodoShouldReturnTodoItem() {
+    void getTodoShouldReturnTodoItem() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill", "IN_PROGRESS"));
@@ -139,7 +141,7 @@ class TodoControllerTest {
     }
 
     @Test
-    public void deleteTodoShouldDeleteItemFromDb() {
+    void deleteTodoShouldDeleteItemFromDb() {
         //GIVEN
         repository.save(new Todo("1", "sleep", "OPEN"));
         repository.save(new Todo("2", "chill", "IN_PROGRESS"));

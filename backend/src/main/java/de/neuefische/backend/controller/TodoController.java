@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.dto.TodoDto;
 import de.neuefische.backend.model.Todo;
 import de.neuefische.backend.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +30,18 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo addTodo(@RequestBody Todo todo){
-        return todoService.addTodo(todo);
+    public Todo addTodo(@RequestBody TodoDto todoDto){
+        return todoService.addTodo(todoDto);
     }
 
     @PutMapping("{id}")
-    public Todo updateTodo(@PathVariable String id, @RequestBody Todo todo){
+    public Todo updateTodo(@PathVariable String id, @RequestBody TodoDto todoDto){
 
-        if(!id.equals(todo.getId())){
+        if(!id.equals(todoDto.getId())){
             throw new IllegalArgumentException("Could not update element! Path id does not match with element id in request body!");
         }
 
-        return todoService.updateTodo(todo);
+        return todoService.updateTodo(todoDto);
     }
 
     @DeleteMapping("{id}")
