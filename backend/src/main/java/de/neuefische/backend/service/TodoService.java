@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.dto.TodoDto;
 import de.neuefische.backend.model.Todo;
 import de.neuefische.backend.repo.TodoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,23 @@ public class TodoService {
         return todoRepo.findAll();
     }
 
-    public Todo addTodo(Todo todo) {
+    public Todo addTodo(TodoDto todoDto) {
+        Todo todo = new Todo();
+        todo.setDescription(todoDto.getDescription());
+        todo.setStatus(todoDto.getStatus());
         todo.setId(idService.generateId());
         return todoRepo.save(todo);
     }
 
-    public Todo updateTodo(Todo todo) {
-        if(todoRepo.existsById(todo.getId())){
+    public Todo updateTodo(TodoDto todoDto) {
+        if(todoRepo.existsById(todoDto.getId())){
+            Todo todo = new Todo();
+            todo.setId(todoDto.getId());
+            todo.setDescription(todoDto.getDescription());
+            todo.setStatus(todoDto.getStatus());
             return todoRepo.save(todo);
         } else{
-            throw new NoSuchElementException("Could not update Todo element! Element with id does not exist: " + todo.getId());
+            throw new NoSuchElementException("Could not update Todo element! Element with id does not exist: " + todoDto.getId());
         }
     }
 

@@ -56,7 +56,6 @@ public class GitHubApiService {
         }
 
         return response.getBody().getAccessToken();
-
     }
 
     public GitHubUserDto retrieveUserInfo(String gitHubToken) {

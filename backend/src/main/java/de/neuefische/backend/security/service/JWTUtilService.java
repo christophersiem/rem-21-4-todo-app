@@ -17,7 +17,7 @@ public class JWTUtilService {
     @Value("${neuefische.todo.jwt.secret}")
     private String JWT_SECRET;
 
-    private long duration = 4 * 60 * 60 * 1000;
+    private long duration = 4L * 60L * 60L * 1000L;
 
     public String createToken(HashMap<String, Object> claims, String subject) {
 

@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.dto.TodoDto;
 import de.neuefische.backend.model.Todo;
 import de.neuefische.backend.repo.TodoRepo;
 import org.junit.jupiter.api.Assertions;
@@ -20,10 +21,15 @@ class TodoServiceTest {
     @Test
     void testUpdateTodo() {
         // GIVEN
-        Todo todoToUpdate = new Todo();
+        TodoDto todoToUpdate = new TodoDto();
         todoToUpdate.setId("123ABC");
         todoToUpdate.setDescription("Aufräumen");
         todoToUpdate.setStatus("OPEN");
+
+        Todo todoToSave = new Todo();
+        todoToSave.setId("123ABC");
+        todoToSave.setDescription("Aufräumen");
+        todoToSave.setStatus("OPEN");
 
         Todo updatedTodoItem = new Todo();
         updatedTodoItem.setId("123ABC");
@@ -37,14 +43,14 @@ class TodoServiceTest {
         Todo actual = todoService.updateTodo(todoToUpdate);
 
         // THEN
-        verify(todoRepo).save(todoToUpdate);
+        verify(todoRepo).save(todoToSave);
         assertThat(actual, is(updatedTodoItem));
     }
 
     @Test
     void testUpdateTodo_elementNotFound() {
         // GIVEN
-        Todo todoToUpdate = new Todo();
+        TodoDto todoToUpdate = new TodoDto();
         todoToUpdate.setId("123ABC");
         todoToUpdate.setDescription("Aufräumen");
         todoToUpdate.setStatus("OPEN");
