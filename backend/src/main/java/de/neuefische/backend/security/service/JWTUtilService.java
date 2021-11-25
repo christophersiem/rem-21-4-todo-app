@@ -26,7 +26,7 @@ public class JWTUtilService {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(Duration.ofMillis(duration))))
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofMillis(TOKEN_LIFETIME))))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
