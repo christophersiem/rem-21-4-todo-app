@@ -19,6 +19,9 @@ public class JWTUtilService {
     @Value("${neuefische.todo.jwt.secret}")
     private String jwtSecret;
 
+    @Value("${neuefische.todo.jwt.tokenLifetime:14400000}")
+    private long tokenLifetime;
+
     public String createToken(Map<String, Object> claims, String subject) {
 
         // Generate JWT
@@ -26,7 +29,7 @@ public class JWTUtilService {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(Duration.ofMillis(TOKEN_LIFETIME))))
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofMillis(tokenLifetime))))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
