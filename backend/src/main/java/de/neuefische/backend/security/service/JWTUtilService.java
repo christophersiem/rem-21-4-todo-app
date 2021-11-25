@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class JWTUtilService {
 
-    private static final long duration = 4L * 60L * 60L * 1000L;
+    private static final long TOKEN_LIFETIME = 4L * 60L * 60L * 1000L;
 
     @Value("${neuefische.todo.jwt.secret}")
     private String jwtSecret;
