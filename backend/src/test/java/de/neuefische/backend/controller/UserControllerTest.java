@@ -64,7 +64,7 @@ class UserControllerTest {
         //GIVEN
         HttpHeaders headers = new HttpHeaders();
 
-        ReflectionTestUtils.setField(jwtUtilService, "duration", 1);
+        ReflectionTestUtils.setField(JWTUtilService.class, "TOKEN_LIFETIME", 1);
         headers.setBearerAuth(jwtUtilService.createToken(new HashMap<>(), "test_username"));
 
         //headers.setBearerAuth("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJleHAiOjE2MzQ3Mzc1NTQsImlhdCI6MTYzNDczNzQ5NH0.hRz2tvtXjLbof29HFGWTcGGk8VxliVoD17Yhl-uEPdw");
