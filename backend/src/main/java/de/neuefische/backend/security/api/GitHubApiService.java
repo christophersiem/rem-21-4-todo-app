@@ -4,6 +4,7 @@ import de.neuefische.backend.controller.exception.GitHubAuthException;
 import de.neuefische.backend.security.model.GitHubAccessTokenDto;
 import de.neuefische.backend.security.model.GitHubOAuthCredentialsDto;
 import de.neuefische.backend.security.model.GitHubUserDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -13,25 +14,19 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class GitHubApiService {
-
-
-    private final RestTemplate restTemplate;
-
 
     private static final String GITHUB_CODE_URL = "https://github.com/login/oauth/access_token";
     private static final String GITHUB_USER_URL = "https://api.github.com/user";
 
+    private final RestTemplate restTemplate;
 
     @Value("${de.neuefische.todo.github.clientid}")
     private String clientId;
 
     @Value("${de.neuefische.todo.github.clientsecret}")
     private String clientSecret;
-
-    public GitHubApiService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
 
     @SuppressWarnings({"java:S2259"})
     public String retrieveGitHubToken(String code) {
