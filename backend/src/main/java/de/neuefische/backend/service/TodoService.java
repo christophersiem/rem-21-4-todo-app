@@ -3,6 +3,7 @@ package de.neuefische.backend.service;
 import de.neuefische.backend.dto.TodoDto;
 import de.neuefische.backend.model.Todo;
 import de.neuefische.backend.repo.TodoRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +12,11 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TodoService {
 
     private final TodoRepo todoRepo;
     private final IdService idService;
-
-    @Autowired
-    public TodoService(TodoRepo todoRepo, IdService idService) {
-        this.todoRepo = todoRepo;
-        this.idService = idService;
-    }
 
     public List<Todo> getTodos() {
         return todoRepo.findAll();

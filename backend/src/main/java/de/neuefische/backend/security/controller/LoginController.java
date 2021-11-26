@@ -2,6 +2,7 @@ package de.neuefische.backend.security.controller;
 
 import de.neuefische.backend.security.dto.LoginDto;
 import de.neuefische.backend.security.service.JWTUtilService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,16 +15,11 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("auth/login")
+@RequiredArgsConstructor
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtilService jwtService;
-
-    @Autowired
-    public LoginController(AuthenticationManager authenticationManager, JWTUtilService jwtService) {
-        this.authenticationManager = authenticationManager;
-        this.jwtService = jwtService;
-    }
 
     @PostMapping
     public String login(@RequestBody LoginDto loginDto){

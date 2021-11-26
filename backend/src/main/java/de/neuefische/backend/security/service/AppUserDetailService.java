@@ -2,6 +2,7 @@ package de.neuefische.backend.security.service;
 
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repo.AppUserRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,14 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AppUserDetailService implements UserDetailsService {
 
     private final AppUserRepo appUserRepo;
-
-    @Autowired
-    public AppUserDetailService(AppUserRepo appUserRepo) {
-        this.appUserRepo = appUserRepo;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,6 +1,7 @@
 package de.neuefische.backend.security.filter;
 
 import de.neuefische.backend.security.service.JWTUtilService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,13 +17,10 @@ import java.util.List;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private JWTUtilService jwtUtils;
-
-    public JwtAuthFilter(JWTUtilService jwtUtils) {
-        this.jwtUtils = jwtUtils;
-    }
+    private final JWTUtilService jwtUtils;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

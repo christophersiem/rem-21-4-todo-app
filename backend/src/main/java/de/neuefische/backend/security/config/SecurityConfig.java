@@ -1,6 +1,7 @@
 package de.neuefische.backend.security.config;
 
 import de.neuefische.backend.security.service.AppUserDetailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,16 +17,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.Filter;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AppUserDetailService appUserDetailService;
     private final Filter jwtAuthFilter;
-
-    @Autowired
-    public SecurityConfig(AppUserDetailService appUserDetailService, Filter jwtAuthFilter) {
-        this.appUserDetailService = appUserDetailService;
-        this.jwtAuthFilter = jwtAuthFilter;
-    }
 
     @Override
     @SuppressWarnings({"java:S5344"})

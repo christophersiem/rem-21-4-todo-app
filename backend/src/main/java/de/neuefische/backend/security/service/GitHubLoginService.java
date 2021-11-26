@@ -2,20 +2,17 @@ package de.neuefische.backend.security.service;
 
 import de.neuefische.backend.security.api.GitHubApiService;
 import de.neuefische.backend.security.model.GitHubUserDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
+@RequiredArgsConstructor
 public class GitHubLoginService {
 
     private final GitHubApiService gitHubApiService;
     private final JWTUtilService jwtUtilService;
-
-    public GitHubLoginService(GitHubApiService gitHubApiService, JWTUtilService jwtUtilService) {
-        this.gitHubApiService = gitHubApiService;
-        this.jwtUtilService = jwtUtilService;
-    }
 
     public String verifyGitHubCode(String code) {
         // 1) Verify code via GitHub
